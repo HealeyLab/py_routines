@@ -112,4 +112,34 @@ def wave_plot(timestamps, clusname, filtered_voltage_channel, wave_N, width):
     return wave, plotx, avg, sterr
 
 
+#Uses:
+
+#arr = np.fromfile('continuous.dat', dtype='<i2', sep="")
+
+
+#"""cluster118 is on ch17 tetrode 5"""
+
+
+#channels = {}               #set up all 32 channels in a dict
+#for j in range(32):
+#    channels['ch' + str(j)] = []
+#    for i in range(j, len(arr), 32):
+#        channels['ch' + str(j)].append(arr[i])   #unpack the channels from the binary array 'arr'
+        
+#ch19 = channels['ch19']                           #grab channel for cluster 113
+
+#del channels                                      #recover some RAM
+#del arr                                            #recover more RAM
+
+
+#spks113 = readspikes('11232021_experiment1_recording1_cluster113.txt')
+#spks118 = readspikes('11232021_experiment1_recording1_cluster118.txt')
+
+#chan16p = scipy.signal.butter(3, 600, btype='highpass', fs=30000, output='sos')         #set up bandpass filter to get rid of low-freq oscillations
+#filteredch19 = signal.sosfilt(chan16p, ch19)                                #apply filter to channel
+
+#wave19 = wave_plot(cl123, 'spikes123ch19', filteredch19, 450, 0.01)
+
+
+
 
