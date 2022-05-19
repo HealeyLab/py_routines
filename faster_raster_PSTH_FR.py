@@ -26,14 +26,14 @@ from pylab import *
 and trigger them with a stimulus key (typically a '.csv' format) to generate a raster, PSTH, 
 and inst FR plot for a given stimulus. beware, this code is quite nested and slow...."""
 
-def run_folder(ky, winstart, winend):
+def run_folder(ky, keyname, winstart, winend):
     """runs an entire folder's collection of sorted 'txt' files"""
     
     l = os.listdir()
     for i in l:
         if i.endswith('.txt'):
             print(i)
-            raster_H_FR(ky, readspikes(i), str('' + i[-7:-4] + ''), 0, 3000, winstart, winend)
+            raster_H_FR(ky, keyname, readspikes(i), str('' + i[-7:-4] + ''), 0, 3000, winstart, winend)
     return
 
 
@@ -82,7 +82,7 @@ def readspikes(spikes):
     return spks
 
   
-def raster_H_FR(keys, clus, clusname, start, end, ras_start, ras_end):
+def raster_H_FR(keys, keyname, clus, clusname, start, end, ras_start, ras_end):
     '''Takes a set of key triggers 'keys', a sorted spike cluster 'clus', the name of the cluster
     for plotting on the figure 'clusname' as a string, the 'start' and
     'end' of a segment of recording, and the frames for the raster start 'ras_start' and 
@@ -109,10 +109,10 @@ def raster_H_FR(keys, clus, clusname, start, end, ras_start, ras_end):
     
 
     #below plots all three on the same axes
-    f = plt.figure('' + str(clusname) + '')
+    f = plt.figure('' + str(clusname) + '' + ' for stimulus = ' + str(keyname) + '')
     plt.subplot(3,1,1)       #pos is a three digit integer, where the first digit is the number of rows, the second the number of columns, and the third the index of the subplot.
     plt.eventplot(s)    #to plot the raster
-    plt.box(False)
+    #plt.box(False)
     #    plt.xaxis(False)
     
     plt.subplot(3,1,2)
@@ -129,14 +129,14 @@ def raster_H_FR(keys, clus, clusname, start, end, ras_start, ras_end):
     bins2 = bins.copy()
     bins2.pop(-1)     #take last one off since hist lops it off
     
-    FR['ave'], FR['std'] = np.mean(FR, axis=1), np.std(FR, axis=1)
-    FR['sterr'] = np.std(FR, axis=1)/np.sqrt(len(FR.columns))
-    FR['x'] = bins2
+    FRave, FRstd = np.mean(FR, axis=1), np.std(FR, axis=1)
+    FRsterr = np.std(FR, axis=1)/np.sqrt(len(FR.columns))
+    FRx = bins2
     
     plt.subplot(3,1,3) #to plot the instantaneous FR
-    plt.plot(FR['x'], FR['ave'])
-    plt.fill_between(FR['x'], (FR['ave']+FR['sterr']), (FR['ave']-FR['sterr']), facecolor='blue', alpha=0.5)
-    plt.ylabel('FR')
+    plt.plot(FRx, FRave)
+    plt.fill_between(FRx, (FRave +FRsterr), (FRave -FRsterr), facecolor='blue', alpha=0.5)
+    plt.ylabel('Inst. FR')
     plt.xlabel('Time (sec)')
     
     plt.show()
