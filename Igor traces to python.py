@@ -93,25 +93,3 @@ ax.fill_between(list(range(u.size)), (u+se), (u-se), facecolor='blue', alpha=0.5
 
 
 
-
-# """below can bring two recording epochs together to compare them visually"""
-
-# op = np.load('arry.npy')  #"in one directory"
-# pre = np.load('arry.npy')  #"in another directory"
-# uop = np.mean(op, axis=0).reshape(op[1].size)
-# xop = np.array([[list(range(uop.size))]]) 
-# stdop = np.std(op, axis=0).reshape(op[1].size)
-# seop = (np.std(op, axis=0)/np.sqrt(len(op))).reshape(op[1].size)
-# upre = np.mean(pre, axis=0).reshape(pre[1].size)
-# xpre = np.array([[list(range(pre.size))]]) 
-# stdpre = np.std(pre, axis=0).reshape(pre[1].size)
-# sepre = (np.std(pre, axis=0)/np.sqrt(len(pre))).reshape(pre[1].size)
-
-
-# fig, ax = plt.subplots()
-# ax.plot(uop, label = 'mean + sem')
-# ax.fill_between(list(range(uop.size)), (uop+seop), (uop-seop), facecolor='blue', alpha=0.5)
-# ax.plot(upre, label = 'pre')
-# ax.fill_between(list(range(upre.size)), (upre+sepre), (upre-sepre), facecolor='pink', alpha=0.5)
-# ax.legend()
-
