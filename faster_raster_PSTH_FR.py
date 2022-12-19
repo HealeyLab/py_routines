@@ -110,12 +110,12 @@ def raster_H_FR(keys, keyname, clus, clusname, start, end, ras_start, ras_end):
 
     #below plots all three on the same axes
     f = plt.figure('' + str(clusname) + '' + ' for stimulus = ' + str(keyname) + '')
-    plt.subplot(3,1,1)       #pos is a three digit integer, where the first digit is the number of rows, the second the number of columns, and the third the index of the subplot.
+    ax1 = plt.subplot(3,1,1)       #pos is a three digit integer, where the first digit is the number of rows, the second the number of columns, and the third the index of the subplot.
     plt.eventplot(s)    #to plot the raster
     #plt.box(False)
     #    plt.xaxis(False)
     
-    plt.subplot(3,1,2)
+    plt.subplot(3,1,2, sharex=ax1)
     b = plt.hist(s, bins, stacked=True, width=0.01, label = 'hist') #to plot the PSTH
     #plt.ylim(0, int(max(hist.values()))+5)
     
@@ -133,7 +133,7 @@ def raster_H_FR(keys, keyname, clus, clusname, start, end, ras_start, ras_end):
     FRsterr = np.std(FR, axis=1)/np.sqrt(len(FR.columns))
     FRx = bins2
     
-    plt.subplot(3,1,3) #to plot the instantaneous FR
+    plt.subplot(3,1,3, sharex=ax1) #to plot the instantaneous FR
     plt.plot(FRx, FRave)
     plt.fill_between(FRx, (FRave +FRsterr), (FRave -FRsterr), facecolor='blue', alpha=0.5)
     plt.ylabel('Inst. FR')
